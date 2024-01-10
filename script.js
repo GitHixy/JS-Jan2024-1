@@ -1,4 +1,7 @@
+import * as component from "./component.js"
+
 const url = "https://api.pexels.com/v1/search?query=people"
+
 
 fetch(url, {
     method: 'GET',
@@ -8,8 +11,12 @@ fetch(url, {
 })
 .then((res) => res.json())
 .then((data) => {
-    console.log (data);
+    const results = data.photos;
+    results.map((result) =>{
+        component.createCard(result.src.medium, result.photographer, result.alt, result.photographer_url, 30);
+    });
 })
 .catch((error) => {
     console.error('Error:', error);
 });
+
